@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Gacha Offline</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: url('data:image/png;base64,') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+    }
+    .page {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+    }
+    .top-bar {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      display: flex;
+      align-items: center;
+    }
+    #collection-btn {
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+    .beta-tag {
+      margin-left: 8px;
+      font-size: 14px;
+      color: #f0e68c;
+    }
+    .character-display img {
+      width: 200px;
+      height: 200px;
+      object-fit: contain;
+      filter: brightness(0);
+    }
+    #gacha-btn {
+      margin-top: 20px;
+      padding: 15px 40px;
+      font-size: 20px;
+      background: #8b0000;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    .footer {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      font-size: 12px;
+      color: #ddd;
+    }
+    #result-page {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+    }
+    #result-character {
+      width: 200px;
+      animation: fadeInZoom 1s ease-in-out;
+    }
+    #rarity-stars {
+      margin-top: 10px;
+      font-size: 24px;
+    }
+    @keyframes fadeInZoom {
+      0% { opacity: 0; transform: scale(0.5); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+<audio autoplay loop>
+  <source src="data:audio/mpeg;base64," type="audio/mpeg" />
+</audio>
+
+<div id="main-page" class="page">
+  <div class="top-bar">
+    <button id="collection-btn" onclick="toggleCollection()">📦</button>
+    <span class="beta-tag" style="color:black; font-size:14px;">BETA</span>
+  </div>
+  <div class="character-display">
+    <img src="data:image/png;base64," alt="Mythic Shadow" />
+  </div>
+  <button id="gacha-btn">GACHA!</button>
+  <div class="footer">
+    <span><span style="color:red; font-size:14px;">Pencipta:</span> <span style="color:blue; font-size:14px;">Azhar</span></span>
+  </div>
+</div>
+
+<div id="result-page" class="page">
+  <img id="result-character" src="" />
+  <h2 id="character-name" style="color:#222;"></h2>
+  <div id="rarity-stars"></div>
+  <div id="rarity-level" style="margin-top:5px; font-size:16px; color:#333;"></div>
+  <button onclick="backToMain()">Kembali</button>
+</div>
+
+<div id="collection-page" class="page" style="display:none; background: #fff; color: #000;">
+  <h2>Koleksi Kamu</h2>
+  <div id="collection-list" style="display:flex; gap:10px; flex-wrap:wrap; justify-content:center;"></div>
+  <button onclick="toggleCollection()">⬅ Kembali</button>
+</div>
+
+<script>
+const characters = [
+  { name: "Sylphina", rarity: 1, image: "data:image/png;base64," },
+  { name: "Pyroclast", rarity: 2, image: "data:image/png;base64," },
+  { name: "Voltress", rarity: 3, image: "data:image/png;base64," },
+  { name: "Chronor", rarity: 4, image: "data:image/png;base64," },
+  { name: "Aetheron", rarity: 5, image: "data:image/png;base64," }
+];
+const chances = [35, 25, 20, 15, 5];
+
+function getRarityName(r) {
+  return ["Common", "Rare", "Epic", "Legendary", "Mythic"][r - 1];
+}
+
+function getRandomCharacter() {
+  let rand = Math.random() * 100;
+  let total = 0;
+  for (let i = 0; i < chances.length; i++) {
+    total += chances[i];
+    if (rand <= total) return characters[i];
+  }
+  return characters[0];
+}
+
+document.getElementById("gacha-btn").onclick = () => {
+  const char = getRandomCharacter();
+  document.getElementById("main-page").style.display = "none";
+  document.getElementById("result-page").style.display = "flex";
+  document.getElementById("result-character").src = char.image;
+  document.getElementById("character-name").textContent = char.name;
+  document.getElementById("rarity-stars").innerHTML = "★".repeat(char.rarity);
+  document.getElementById("rarity-level").textContent = getRarityName(char.rarity);
+  saveToCollection(char.name);
+};
+
+function backToMain() {
+  document.getElementById("result-page").style.display = "none";
+  document.getElementById("main-page").style.display = "flex";
+}
+
+function toggleCollection() {
+  const main = document.getElementById("main-page");
+  const collection = document.getElementById("collection-page");
+  const list = document.getElementById("collection-list");
+  main.style.display = main.style.display === "none" ? "flex" : "none";
+  collection.style.display = collection.style.display === "none" ? "flex" : "none";
+  if (collection.style.display === "flex") {
+    renderCollection(list);
+  }
+}
+
+function saveToCollection(name) {
+  let collection = JSON.parse(localStorage.getItem("collection") || "[]");
+  if (!collection.includes(name)) {
+    collection.push(name);
+    localStorage.setItem("collection", JSON.stringify(collection));
+  }
+}
+
+function renderCollection(container) {
+  const all = characters.map(c => c.name);
+  const got = JSON.parse(localStorage.getItem("collection") || "[]");
+  container.innerHTML = "";
+  all.forEach(name => {
+    const el = document.createElement("div");
+    el.textContent = name;
+    el.style.opacity = got.includes(name) ? "1" : "0.3";
+    el.style.background = "#eee";
+    el.style.padding = "10px 20px";
+    el.style.borderRadius = "10px";
+    container.appendChild(el);
+  });
+}
+</script>
+</body>
+</html>
