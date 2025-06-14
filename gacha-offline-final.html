@@ -1,191 +1,109 @@
-<!DOCTYPE html>
-<html lang="en">
+<html><meta charset='UTF-8'/><meta content='width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=5' name='viewport'/><meta content='IE=edge' http-equiv='X-UA-Compatible'/>
 <head>
-  <meta charset="UTF-8" />
-  <title>Gacha Offline</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: url('data:image/png;base64,') no-repeat center center fixed;
-      background-size: cover;
-      color: #fff;
-    }
-    .page {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      text-align: center;
-    }
-    .top-bar {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      display: flex;
-      align-items: center;
-    }
-    #collection-btn {
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      font-size: 20px;
-      cursor: pointer;
-    }
-    .beta-tag {
-      margin-left: 8px;
-      font-size: 14px;
-      color: #f0e68c;
-    }
-    .character-display img {
-      width: 200px;
-      height: 200px;
-      object-fit: contain;
-      filter: brightness(0);
-    }
-    #gacha-btn {
-      margin-top: 20px;
-      padding: 15px 40px;
-      font-size: 20px;
-      background: #8b0000;
-      color: white;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-    }
-    .footer {
-      position: absolute;
-      bottom: 10px;
-      left: 10px;
-      font-size: 12px;
-      color: #ddd;
-    }
-    #result-page {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-    }
-    #result-character {
-      width: 200px;
-      animation: fadeInZoom 1s ease-in-out;
-    }
-    #rarity-stars {
-      margin-top: 10px;
-      font-size: 24px;
-    }
-    @keyframes fadeInZoom {
-      0% { opacity: 0; transform: scale(0.5); }
-      100% { opacity: 1; transform: scale(1); }
-    }
-  </style>
+<title>Script HTML Kamu Mau Gak Jadi Pacar Aku?</title>
+<meta name="description" content="Tapi Kita Akan Putus dalam Waktu">
+<meta name="keywords" content="Kamu Mau Gak Jadi Pacar Aku Tapi Kita Akan Putus dalam Waktu">
+<link rel="icon" type="image/x-icon" href="https://www.palingit.com/favicon.ico">
+<!-- 
+  Made with sweet by azhar!
+     Instagram: @zhars.zyz
+  Thanks to all ;)
+  
+  DM ke IG: @zhars.zyz apabila masih bingung
+  untuk cara edit scriptnya!
+-->
+<link href="https://htmlku.com/bukabentar/style.css" rel="stylesheet" type="text/css" /><script src="https://htmlku.com/bukabentar/script.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap" rel="stylesheet"><script src="https://unpkg.com/typeit@8.7.0/dist/index.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
 </head>
+<style>
+:root {
+--warna-bg: rgba(0, 0, 0, .5); 
+--warna-teks: #fff;
+--warna-bingkai: #fff;
+--bingkai: 8px;
+--bingkai-kiri: 2px solid var(--warna-bingkai);
+--bingkai-kanan: 2px solid var(--warna-bingkai);
+--gaya-font: 'Josefin Sans', sans-serif;
+}
+</style>
 <body>
-<audio autoplay loop>
-  <source src="data:audio/mpeg;base64," type="audio/mpeg" />
-</audio>
+	
+   <!-- Ganti Audio di sini --><audio id="linkmp3">https://feeldreams.github.io/hayoloh/inow.mp3</audio>
+   
+   <div id="bodyblur">
+     <!-- Wallpaper --><img src="https://feeldreams.github.io/pics/awan/2.jpg" id="wallpaper"/>
+   </div>
 
-<div id="main-page" class="page">
-  <div class="top-bar">
-    <button id="collection-btn" onclick="toggleCollection()">📦</button>
-    <span class="beta-tag" style="color:black; font-size:14px;">BETA</span>
-  </div>
-  <div class="character-display">
-    <img src="data:image/png;base64," alt="Mythic Shadow" />
-  </div>
-  <button id="gacha-btn">GACHA!</button>
-  <div class="footer">
-    <span><span style="color:red; font-size:14px;">Pencipta:</span> <span style="color:blue; font-size:14px;">Azhar</span></span>
-  </div>
-</div>
+   <div id='Content'>
+   	
+     <div id="suratin" onClick="memulai();audio.play();">
+       <!-- Tombol Surat --><img src="https://rayyscoding.github.io/envelope.png"/>
+     </div>
+     <p id="ket">Klik Suratnya!</p>
 
-<div id="result-page" class="page">
-  <img id="result-character" src="" />
-  <h2 id="character-name" style="color:#222;"></h2>
-  <div id="rarity-stars"></div>
-  <div id="rarity-level" style="margin-top:5px; font-size:16px; color:#333;"></div>
-  <button onclick="backToMain()">Kembali</button>
-</div>
+     <div><blockquote id='bq'>
+       <div>
+         <!-- Stiker untuk Konten -->
+         <img src="https://feeldreams.github.io/pandapanah.gif" id="fotoakhir"/>
+         <img src="https://feeldreams.github.io/peach1.gif" id="fotoakhir2"/>
+         <img src="https://feeldreams.github.io/weee.gif" id="fotoakhir3"/>
+         <img src="https://htmlku.com/0/panda/ketawa2.gif" id="fotoakhir4"/>
+         <img src="https://htmlku.com/0/panda/muah.gif" id="fotoakhir5"/>
+       </div>
 
-<div id="collection-page" class="page" style="display:none; background: #fff; color: #000;">
-  <h2>Koleksi Kamu</h2>
-  <div id="collection-list" style="display:flex; gap:10px; flex-wrap:wrap; justify-content:center;"></div>
-  <button onclick="toggleCollection()">⬅ Kembali</button>
-</div>
+       <!-- Konten Pertanyaan -->
+       <p id="kalimat">Kamu Mau Gak<br>Jadi Pacar Aku? 🤭❤️<br><span id="pesanTolak" style="opacity:0;font-size: 15px;font-weight: 400;transform:scale(0);transition: all .6s ease;position: absolute;display: flex;justify-content: center;">Harus mau dong! 😝</span></p>
+       <p id="kalimatb"></p>
+       <p id="kalimatc"></p>
 
-<script>
-const characters = [
-  { name: "Sylphina", rarity: 1, image: "data:image/png;base64," },
-  { name: "Pyroclast", rarity: 2, image: "data:image/png;base64," },
-  { name: "Voltress", rarity: 3, image: "data:image/png;base64," },
-  { name: "Chronor", rarity: 4, image: "data:image/png;base64," },
-  { name: "Aetheron", rarity: 5, image: "data:image/png;base64," }
-];
-const chances = [35, 25, 20, 15, 5];
+       <!-- Konten Jawaban -->
+       <p id="kalimat2">Yeaayy! 😆</p>
+       <p id="kalimatb2">Mulai sekarang, Kamu<br>adalah Pacarku 🤭❤️</p>
+       <p id="kalimat2b">Eiittss.. 🏃</p>
+       <p id="kalimatc2">Tapi kita akan <b>PUTUS</b><br>dalam waktu: <b id="ctimer" style="font-size:24px">1000</b> 🫠</p>
 
-function getRarityName(r) {
-  return ["Common", "Rare", "Epic", "Legendary", "Mythic"][r - 1];
-}
+       <!-- Konten Jawaban 2 -->
+       <p id="kalimat3">Gak jadi deh! 😜</p>
+       <p id="kalimatb3">Kamu beneran jadi pacar<br>aku kok, jiaakhhh 🤣❤️</p>
+       <p id="kalimatc3"><b>i love uuuu 😍💗🤍</b></p>
+     </blockquote></div>
 
-function getRandomCharacter() {
-  let rand = Math.random() * 100;
-  let total = 0;
-  for (let i = 0; i < chances.length; i++) {
-    total += chances[i];
-    if (rand <= total) return characters[i];
+     <!-- Tombol Multifungsi -->
+     <div id="Tombol">
+       <a id="By" onClick="multifungsi()">
+         <b id="tmbl">Mau</b>
+       </a>
+       
+       <a id="Bn" onClick="ditolak()">Gamau</a><a id="Bn2" onClick="ditolak2()"></a>
+     </div>
+     
+   </div>
+
+<!-- Jangan Edit Bagian Ini -->
+  <script>
+  ftom=0;jikapr=1;ftganti=0;flag=1;flagg=1;fungsi=0;Bn2.innerHTML=Bn.innerHTML;kalimat2b.style="display:none";function showDiv() {pesanwhatsapp = "Aku mau kok jadi pacarmu ><";Bn2.style.display="none";Content.style = "opacity:1;margin-top:10vh;";ket.style="margin-top:30px";}
+  function memulai(){suratin.style="transition:all .7s ease;transform:scale(10);opacity:0";ket.style="display:none";setTimeout(mulaikonten,500)}
+  function mulaikonten() {otomatis();suratin.style="display:none";Content.style = "opacity:1;margin-top:10vh";bodyblur.style="opacity:.6;";wallpaper.style="transform: scale(1.5);opacity:1;";fotoakhir.style="display:inline-flex;";setTimeout(ftmuncul,200);bq.style = "position:relative;opacity:1;visibility:visible;transform: scale(1);border-radius:var(--bingkai);margin-top:0";fungsi=1;setTimeout(tombol,500);}
+  function tunjukkan(){}
+function hilangkan() {}
+  function ftmuncul(){
+    if(ftganti==0){fotoakhir.style="display:inline-flex;opacity:1;transform:scale(1)";}
+    if(ftganti==1){fotoakhir.src = fotoakhir2.src;fotoakhir.style="display:inline-flex;opacity:1;transition:all .7s ease;transform:scale(1);";}
+    if(ftganti==2){fotoakhir.src = fotoakhir3.src;fotoakhir.style="display:inline-flex;opacity:1;transition:all .7s ease;transform:scale(1);";}
+    if(ftganti==3){fotoakhir.src = fotoakhir4.src;fotoakhir.style="display:inline-flex;opacity:1;transition:all .7s ease;transform:scale(1);";}
+    if(ftganti==4){fotoakhir.src = fotoakhir5.src;fotoakhir.style="display:inline-flex;opacity:1;transition:all .7s ease;transform:scale(1);";}
   }
-  return characters[0];
-}
+  function fthilang(){fotoakhir.style="display:inline-flex;opacity:1;transition:all .7s ease;transform:scale(.1)";}
+  function jjfoto(){fotoakhir.style.animation="rto .8s infinite alternate";}
+  
+  function tombol(){Tombol.style="opacity:1;transform: scale(1);";Bn.style="margin:12px 0 12px 12px";ftom=1;}
+  function multifungsi(){if(ftom==1){diterima();} if(ftom==5){menuju();}}
+  async function menuju(){await swals.fire('OK!', 'Kirim pesan ke instagram aku, ya!', 'success');window.location = "https://www.instagram.com/zhars.zyz?igsh=MWI2ZHNhczBrZmQwMw==" + pesanwhatsapp;Tombol.style="margin-top:15px;opacity:1;transform: scale(1);";} setTimeout(showDiv,100);
 
-document.getElementById("gacha-btn").onclick = () => {
-  const char = getRandomCharacter();
-  document.getElementById("main-page").style.display = "none";
-  document.getElementById("result-page").style.display = "flex";
-  document.getElementById("result-character").src = char.image;
-  document.getElementById("character-name").textContent = char.name;
-  document.getElementById("rarity-stars").innerHTML = "★".repeat(char.rarity);
-  document.getElementById("rarity-level").textContent = getRarityName(char.rarity);
-  saveToCollection(char.name);
-};
-
-function backToMain() {
-  document.getElementById("result-page").style.display = "none";
-  document.getElementById("main-page").style.display = "flex";
-}
-
-function toggleCollection() {
-  const main = document.getElementById("main-page");
-  const collection = document.getElementById("collection-page");
-  const list = document.getElementById("collection-list");
-  main.style.display = main.style.display === "none" ? "flex" : "none";
-  collection.style.display = collection.style.display === "none" ? "flex" : "none";
-  if (collection.style.display === "flex") {
-    renderCollection(list);
-  }
-}
-
-function saveToCollection(name) {
-  let collection = JSON.parse(localStorage.getItem("collection") || "[]");
-  if (!collection.includes(name)) {
-    collection.push(name);
-    localStorage.setItem("collection", JSON.stringify(collection));
-  }
-}
-
-function renderCollection(container) {
-  const all = characters.map(c => c.name);
-  const got = JSON.parse(localStorage.getItem("collection") || "[]");
-  container.innerHTML = "";
-  all.forEach(name => {
-    const el = document.createElement("div");
-    el.textContent = name;
-    el.style.opacity = got.includes(name) ? "1" : "0.3";
-    el.style.background = "#eee";
-    el.style.padding = "10px 20px";
-    el.style.borderRadius = "10px";
-    container.appendChild(el);
-  });
-}
-</script>
+  const swalst = Swal.mixin({timer: 2777, allowOutsideClick: false, showConfirmButton: false, timerProgressBar: true, imageHeight: 100,}); audio = new Audio('' + linkmp3.innerHTML);const swals = Swal.mixin({allowOutsideClick: false, cancelButtonColor: '#FF0040', imageWidth: 100, imageHeight: 100,}); const style = document.createElement('style'); var today = new Date();var dd = String(today.getDate()).padStart(2, '0');var mm = String(today.getMonth() + 1).padStart(2, '0');var yyyy = today.getFullYear();const monthNames = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];today = dd + ' ' + monthNames[today.getMonth()] + ' ' + yyyy;
+   const body = document.querySelector("body");
+</script><!--
+<script src="https://test.feeldream.repl.co/tambahan.js"></script>-->
+<!-- Sampai Sini -->
 </body>
 </html>
